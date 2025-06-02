@@ -20,6 +20,9 @@ export default function createSidebar(sections) {
 			deleteBtn.classList.add("delete-folder-btn");
 			deleteBtn.title = "Delete Folder";
 
+			// Use 'title' here because 'folder' is undefined
+			deleteBtn.setAttribute("data-folder", title);
+
 			deleteBtn.addEventListener("click", () => {
 				console.log(`Delete folder: ${title}`);
 			});
