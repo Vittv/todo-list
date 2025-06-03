@@ -1,8 +1,10 @@
 import createSidebar from "../components/sidebar.js";
 import { addTaskToFolder, sidebarData } from "../services/sidebarService.js";
+import { addTask } from "../services/taskService.js";
 import createModal from "../components/modal.js";
 import createFolderModal from "../components/folderModal.js";
 import createConfirmModal from "../components/confirmModal.js";
+import renderTask from "../components/task.js";
 
 function setupAddTaskListeners(container) {
 	const addButtons = container.querySelectorAll(".add-task-to-folder-btn");
@@ -14,6 +16,7 @@ function setupAddTaskListeners(container) {
 
 			createModal(folderName, ({ taskName, description, folder }) => {
 				addTaskToFolder(folder, taskName);
+				addTask(taskName, description);
 				renderSidebar(container);
 			}, folderNames);
 		});
@@ -25,6 +28,7 @@ function setupAddTaskListeners(container) {
 		addTaskBtn.addEventListener("click", () => {
 			createModal(null, ({ taskName, description, folder }) => {
 				addTaskToFolder(folder, taskName);
+				addTask(taskName, description);
 				renderSidebar(container);
 			}, folderNames);
 		});
@@ -73,6 +77,26 @@ function setupNewFolderListener(container) {
 	});
 }
 
+export function setupRenderTaskListener(container) {
+	const sidebar = container.querySelector("aside.sidebar");
+
+	if (!sidebar) return;
+
+	sidebar.addEventListener("click", (e) => {
+		const taskBtn = e.target.closest(".sidebar-btn");
+		if (!taskBtn) return;
+
+		const taskName = taskBtn.textContent.trim();
+
+
+		const existingTaskView = container.querySelector(".task-view");
+		if (existingTaskView) existingTaskView.remove();
+
+		const taskView = renderTask(taskName);
+		container.appendChild(taskView);
+	});
+}
+
 export function renderSidebar(container) {
 	container.querySelector("aside.sidebar")?.remove(); // Remove old sidebar
 	const sidebar = createSidebar(sidebarData);
@@ -81,4 +105,6 @@ export function renderSidebar(container) {
 	setupAddTaskListeners(container);
 	setupDeleteFolderListeners(container);
 	setupNewFolderListener(container);
+	
+	setupRenderTaskListener(container);
 }
