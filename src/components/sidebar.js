@@ -1,79 +1,24 @@
-export default function createSidebar(sections) {
-	const sidebar = document.createElement("aside");
-	sidebar.classList.add("sidebar");
+export function createSidebar(container) {
+	const sidebar = document.createElement("div");
+	sidebar.className = "sidebar";
 
-	function addSection(title, items, deletable) {
-		// Wrapper for heading + actions
-		const headerWrapper = document.createElement("div");
-		headerWrapper.classList.add("sidebar-header");
+	const sidebarTopMenu = document.createElement("div");
+	sidebarTopMenu.className = "sidebar-top-menu";
 
-		const heading = document.createElement("h2");
-		heading.textContent = title;
+	const buttons = ["Today", "Upcoming", "Someday", "Misc"];
 
-		// Action buttons wrapper
-		const actionsWrapper = document.createElement("div");
-		actionsWrapper.classList.add("sidebar-header-actions");
+	buttons.forEach(name => {
+		const button = document.createElement("button");
+		button.className = "sidebar-button";
+		button.textContent = name;
 
-		if (deletable) {
-			const deleteBtn = document.createElement("button");
-			deleteBtn.textContent = "×";
-			deleteBtn.classList.add("delete-folder-btn");
-			deleteBtn.title = "Delete Folder";
-
-			// Use 'title' here because 'folder' is undefined
-			deleteBtn.setAttribute("data-folder", title);
-
-			deleteBtn.addEventListener("click", () => {
-				console.log(`Delete folder: ${title}`);
-			});
-
-			actionsWrapper.appendChild(deleteBtn);
-		}
-
-		const addBtn = document.createElement("button");
-		addBtn.textContent = "+";
-		addBtn.classList.add("add-task-to-folder-btn");
-		addBtn.setAttribute("data-folder", title);
-		actionsWrapper.appendChild(addBtn);
-
-		headerWrapper.appendChild(heading);
-		headerWrapper.appendChild(actionsWrapper);
-		sidebar.appendChild(headerWrapper);
-
-		// Section with task buttons
-		const section = document.createElement("nav");
-		section.classList.add("sidebar-section");
-
-		items.forEach((item) => {
-			const button = document.createElement("button");
-			button.textContent = item;
-			button.classList.add("sidebar-btn");
-			button.setAttribute("data-view", item.toLowerCase().replace(/\s+/g, "-"));
-			section.appendChild(button);
-		});
-
-		sidebar.appendChild(section);
-	}
-
-	sections.forEach(({ title, items, deletable }) => {
-		addSection(title, items, deletable);
+		sidebarTopMenu.appendChild(button);
 	});
 
-	// Container for "New Task" and "New Folder" buttons
-	const actionContainer = document.createElement("div");
-	actionContainer.classList.add("sidebar-actions");
+	const sidebarBottomMenu = document.createElement("div");
+	sidebarBottomMenu.className = "sidebar-bottom-menu";
 
-	const addTaskBtn = document.createElement("button");
-	addTaskBtn.textContent = "+ New Task";
-	addTaskBtn.classList.add("add-task-btn");
-
-	const addFolderBtn = document.createElement("button");
-	addFolderBtn.textContent = "+ New Folder";
-	addFolderBtn.classList.add("add-folder-btn");
-
-	actionContainer.appendChild(addTaskBtn);
-	actionContainer.appendChild(addFolderBtn);
-	sidebar.appendChild(actionContainer);
-
-	return sidebar;
+	sidebar.appendChild(sidebarTopMenu);
+	sidebar.appendChild(sidebarBottomMenu)
+	container.appendChild(sidebar);
 }
