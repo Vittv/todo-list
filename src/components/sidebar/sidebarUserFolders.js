@@ -36,6 +36,10 @@ export function renderSystemFolders(container) {
 				}
 				createFolderPage(folderPage, folder.id);
 			}
+
+			const allSidebarButtons = document.querySelectorAll('.sidebar-button');
+			allSidebarButtons.forEach(btn => btn.classList.remove('active'));
+			button.classList.add('active');
 		});
 		container.appendChild(button);
 	});
@@ -50,10 +54,11 @@ export function renderUserFolders(container) {
 	userFolders.forEach(folder => {
 		const button = document.createElement("button");
 		button.className = "sidebar-button";
+		button.dataset.folderId = folder.id;
 
 		const icon = document.createElement("i");
 		icon.className = "fas fa-cube fa-fw";
-		icon.style.color = "#29B6F6";
+		icon.style.color = "#999";
 		icon.style.marginRight = "0.5em";
 
 		button.appendChild(icon);
@@ -70,6 +75,10 @@ export function renderUserFolders(container) {
 				}
 				createUserFolderPage(folderPage, folder.id);
 			}
+
+			const allSidebarButtons = document.querySelectorAll('.sidebar-button');
+			allSidebarButtons.forEach(btn => btn.classList.remove('active'));
+			button.classList.add('active');
 		});
 		container.appendChild(button);
 	});

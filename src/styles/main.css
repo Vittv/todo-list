@@ -7,8 +7,8 @@
 }
 
 body {
-	background-color: black;
-	color: white;
+	background-color: #111;
+	color: #ddd;
 	border-color: white;
 }
 
@@ -16,6 +16,7 @@ body {
 	display: flex;
 	height: 100vh;
 	overflow: hidden;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .sidebar {
@@ -45,21 +46,29 @@ body {
 	padding: 1rem;
 	padding-top: 2rem;
 	border-top: 1px solid #444;
+	overflow-y: auto;
 }
 
 .sidebar-button {
 	cursor: pointer;
-	font-size: 1.2rem;
+	font-size: 1.0rem;
+	font-weight: 400;
 	background-color: #222;
 	color: #ddd;
 	border: none;
+	padding: 1rem;
 	margin-bottom: 1rem;
 	text-align: left;
 	width: 100%;
 }
 
 .sidebar-button:hover {
-  	filter: brightness(110%);
+  	filter: brightness(80%);
+}
+
+.sidebar-button.active,
+.sidebar-button:active {
+  filter: brightness(80%);
 }
 
 .folder-page {
@@ -78,7 +87,7 @@ body {
 .folder-page > .task-block {
 	border-top: 1px solid white;
 	margin: 0 2rem;
-	padding: 1rem;
+	padding: 2rem 0rem;
 }
 
 .folder-page ul {
@@ -106,10 +115,11 @@ body {
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
+	border-top: 1px solid #444;
 }
 
 .add-task-button {
-	border-right: 1px solid #312b2b;
+	border-right: 1px solid #444;
 }
 
 .add-task-button:hover,
@@ -118,13 +128,15 @@ body {
 }
 
 .delete-folder-button {
-  	color: #ff8a80;
+  	color: #ddd;
 }
 
 .empty-tasks-message {
 	margin: auto;
 	align-self: center;
 	text-align: center;
+	font-size: 2rem;
+	font-weight: 300;
 }
 
 .sidebar-bottom-bar {
@@ -147,8 +159,134 @@ body {
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
+	border-top: 1px solid #444;
 }
 
 .add-folder-button:hover {
   	background: #333;
+}
+
+.sidebar-top-bar {
+	width: 100%;
+	background: #222;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 20;
+}
+
+.sidebar-topbar-btn {
+	width: 100%;
+	font-size: 1.2rem;
+	background: #222;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.2s;
+	border-bottom: 1px solid #444;
+}
+
+.sidebar-topbar-btn:hover {
+  	background: #333;
+}
+
+.github-btn i {
+  	color: #fff;
+}
+
+.sidebar-topbar-btn:first-of-type {
+	border-right: 1px solid #444;
+}
+
+.moon-btn i {
+  	color: #FFD600;
+}
+
+h1 {
+	font-size: 4rem;
+	font-weight: 300;
+	padding: 1rem;
+}
+
+h2 {
+	font-size: 3rem;
+	font-weight: 300;
+	padding: 0.5rem 0;
+}
+
+h3 {
+	font-size: 1.6rem;
+	font-weight: 300;
+}
+
+.metadiv {
+	margin: 1rem 0;
+	font-size: 1.2rem;
+}
+
+.detaildiv {
+	font-size: 1.2rem;
+}
+
+.detaildiv li:first-of-type {
+	margin-top: 1rem;
+}
+
+.detaildiv li {
+	font-size: 1.2rem;
+}
+
+/* custom checkbox styles */
+.custom-checkbox {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  	display: none;
+}
+
+.custom-checkbox .checkmark {
+	width: 1.1em;
+	height: 1.1em;
+	border: 2px solid #ddd;
+	border-radius: 0;
+	background: #222;
+	margin-right: 0.5em;
+	position: relative;
+	transition: border-color 0.2s, background 0.2s;
+	flex-shrink: 0;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+	background: #1b6fc4;
+	border-color: #ddd;
+}
+
+.custom-checkbox .checkmark::after {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 0.35em;
+	top: 0.05em;
+	width: 0.25em;
+	height: 0.6em;
+	border: solid #fff;
+	border-width: 0 0.18em 0.18em 0;
+	opacity: 0;
+	transform: rotate(45deg) scale(0.8);
+	transition: opacity 0.2s;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
+  	opacity: 1;
 }

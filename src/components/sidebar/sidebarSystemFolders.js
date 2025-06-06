@@ -15,6 +15,7 @@ export function renderSystemFolders(container) {
 	systemFolders.forEach(folder => {
 		const button = document.createElement("button");
 		button.className = "sidebar-button";
+		button.dataset.folderId = folder.id;
 
 		const iconInfo = systemFolderIcons[folder.id] || { icon: "fa-folder", color: "#888", prefix: "fas" };
 		const icon = document.createElement("i");
@@ -36,6 +37,10 @@ export function renderSystemFolders(container) {
 				}
 				createFolderPage(folderPage, folder.id);
 			}
+			
+			const allSidebarButtons = document.querySelectorAll('.sidebar-button');
+			allSidebarButtons.forEach(btn => btn.classList.remove('active'));
+			button.classList.add('active');
 		});
 		container.appendChild(button);
 	});

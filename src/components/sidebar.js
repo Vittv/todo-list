@@ -5,6 +5,25 @@ export function createSidebar(container) {
 	const sidebar = document.createElement("div");
 	sidebar.className = "sidebar";
 
+	const sidebarTopBar = document.createElement("div");
+	sidebarTopBar.className = "sidebar-top-bar";
+
+	const githubButton = document.createElement("button");
+	githubButton.className = "sidebar-topbar-btn github-btn";
+	const githubIcon = document.createElement("i");
+	githubIcon.className = "fab fa-github fa-fw";
+	githubButton.appendChild(githubIcon);
+
+	const moonButton = document.createElement("button");
+	moonButton.className = "sidebar-topbar-btn moon-btn";
+	const moonIcon = document.createElement("i");
+	moonIcon.className = "fas fa-moon fa-fw";
+	moonButton.appendChild(moonIcon);
+
+	sidebarTopBar.appendChild(githubButton);
+	sidebarTopBar.appendChild(moonButton);
+	sidebar.appendChild(sidebarTopBar);
+
 	const sidebarTopMenu = document.createElement("div");
 	sidebarTopMenu.className = "sidebar-top-menu";
 	const sidebarBottomMenu = document.createElement("div");
@@ -15,6 +34,8 @@ export function createSidebar(container) {
 
 	sidebar.appendChild(sidebarTopMenu);
 	sidebar.appendChild(sidebarBottomMenu);
+
+
 
 	const sidebarBottomBar = document.createElement("div");
 	sidebarBottomBar.className = "sidebar-bottom-bar";

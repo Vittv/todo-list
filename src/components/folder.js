@@ -25,6 +25,7 @@ export function createFolderPage(folderPage, folderId) {
 
 			// Header
 			const headerDiv = document.createElement("div");
+			headerDiv.className = "headerdiv";
 			const title = document.createElement("h2");
 			title.textContent = task.title;
 
@@ -36,6 +37,7 @@ export function createFolderPage(folderPage, folderId) {
 
 			// Meta
 			const metaDiv = document.createElement("div");
+			metaDiv.className = "metadiv";
 			const due = document.createElement("p");
 			due.textContent = `Due: ${task.dueDate || "N/A"}`;
 
@@ -47,6 +49,7 @@ export function createFolderPage(folderPage, folderId) {
 
 			// Details
 			const detailDiv = document.createElement("div");
+			detailDiv.className = "detaildiv";
 
 			if (task.notes) {
 				const notes = document.createElement("p");
@@ -58,16 +61,27 @@ export function createFolderPage(folderPage, folderId) {
 			if (checklist.length > 0) {
 				const ul = document.createElement("ul");
 
-				checklist.forEach(item => {
+				checklist.forEach((item, idx) => {
 					const li = document.createElement("li");
+
+					const label = document.createElement("label");
+					label.className = "custom-checkbox";
 
 					const checkbox = document.createElement("input");
 					checkbox.type = "checkbox";
 					checkbox.checked = item.done;
-					checkbox.disabled = true;
+					checkbox.addEventListener("change", (e) => {
+						item.done = checkbox.checked;
+					});
 
-					li.appendChild(checkbox);
-					li.append(` ${item.text}`);
+					const checkmark = document.createElement("span");
+					checkmark.className = "checkmark";
+
+					label.appendChild(checkbox);
+					label.appendChild(checkmark);
+					label.append(` ${item.text}`);
+
+					li.appendChild(label);
 					ul.appendChild(li);
 				});
 
