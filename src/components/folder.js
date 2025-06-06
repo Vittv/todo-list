@@ -1,9 +1,25 @@
 import { getTasks } from "../data/taskData";
+import { getFolders } from "../data/folderData";
 
 export function createFolderPage(folderPage, folderId) {
 	folderPage.innerHTML = ""; // clear any old content
 
+	const allFolders = getFolders();
+	const folder = allFolders.find(f => f.id === folderId);
+	if (folder) {
+		const heading = document.createElement("h1");
+		heading.textContent = folder.name;
+		folderPage.appendChild(heading);
+	}
+
 	const tasks = getTasks(folderId);
+	if (!tasks || tasks.length === 0) {
+		const emptyMsg = document.createElement("div");
+		emptyMsg.className = "empty-tasks-message";
+		emptyMsg.textContent = "It seems we have no tasks here yet.";
+		folderPage.appendChild(emptyMsg);
+		return;
+	}
 
 	tasks.forEach(task => {
 		const taskDiv = document.createElement("div");
@@ -11,7 +27,7 @@ export function createFolderPage(folderPage, folderId) {
 
 		// Header
 		const headerDiv = document.createElement("div");
-		const title = document.createElement("h1");
+		const title = document.createElement("h2");
 		title.textContent = task.title;
 
 		const description = document.createElement("h3");

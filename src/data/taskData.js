@@ -53,33 +53,6 @@ const tasks = [
 		priority: "High",
 		notes: ""
 	},
-	{
-		id: 5,
-		folderId: "__upcoming",
-		title: "Finish todo-list app",
-		description: "Attempt to finish The Odin Project's todo-list app assignment.",
-		dueDate: "2025-06-06",
-		priority: "High",
-		notes: ""
-	},
-	{
-		id: 6,
-		folderId: "__someday",
-		title: "Finish todo-list app",
-		description: "Attempt to finish The Odin Project's todo-list app assignment.",
-		dueDate: "2025-06-06",
-		priority: "High",
-		notes: ""
-	},
-	{
-		id: 7,
-		folderId: "__misc",
-		title: "Finish todo-list app",
-		description: "Attempt to finish The Odin Project's todo-list app assignment.",
-		dueDate: "2025-06-06",
-		priority: "High",
-		notes: ""
-	},
 ];
 
 export function getTasks(folderId = null) {

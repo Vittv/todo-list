@@ -12,15 +12,13 @@ export function renderUserFolders(container) {
 		button.addEventListener("click", () => {
 			const main = document.getElementById("content");
 			if (main) {
-				const defaultPage = main.querySelector('.folder-page');
-				if (defaultPage) defaultPage.remove();
-				let area = main.querySelector(".task-area");
-				if (!area) {
-					area = document.createElement("div");
-					area.className = "task-area";
-					main.appendChild(area);
+				let folderPage = main.querySelector('.folder-page');
+				if (!folderPage) {
+					folderPage = document.createElement("div");
+					folderPage.className = "folder-page";
+					main.appendChild(folderPage);
 				}
-				createFolderPage(area, folder.id);
+				createFolderPage(folderPage, folder.id);
 			}
 		});
 		container.appendChild(button);
