@@ -1,3 +1,5 @@
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
 * {
 	box-sizing: border-box;
 	padding: 0;
@@ -13,14 +15,20 @@ body {
 #content {
 	display: flex;
 	height: 100vh;
+	overflow: hidden;
 }
 
 .sidebar {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	height: 100vh;
 	width: 20%;
 	background-color: #222;
+	position: sticky;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	border-right: 1px solid #444;
 }
 
 .sidebar-top-menu {
@@ -28,26 +36,119 @@ body {
 	flex-direction: column;
 	align-items: stretch;
 	padding: 1rem;
+	margin-top: 2rem;
 }
 
 .sidebar-bottom-menu {
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
-	border-top: 1px solid white;
+	padding-top: 2rem;
+	border-top: 1px solid #444;
 }
 
 .sidebar-button {
-  cursor: pointer;
-  font-size: 1.2rem;
-  background-color: #222;
-  color: #ddd;
-  border: none;
-  margin-bottom: 1rem;
-  text-align: left;
-  width: 100%;
+	cursor: pointer;
+	font-size: 1.2rem;
+	background-color: #222;
+	color: #ddd;
+	border: none;
+	margin-bottom: 1rem;
+	text-align: left;
+	width: 100%;
 }
 
 .sidebar-button:hover {
-  filter: brightness(110%);
+  	filter: brightness(110%);
+}
+
+.folder-page {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.folder-page > h1 {
+  	align-self: center;
+  	text-align: center;
+}
+
+.folder-page > .task-block {
+	border-top: 1px solid white;
+	margin: 0 2rem;
+	padding: 1rem;
+}
+
+.folder-page ul {
+	list-style: none;
+}
+
+.folder-bottom-bar {
+	margin-top: auto;
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: #222;
+	display: flex;
+	justify-content: center;
+	z-index: 2;
+}
+
+.add-task-button,
+.delete-folder-button {
+	width: 100%;
+	font-size: 2rem;
+	background: #222;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.add-task-button {
+	border-right: 1px solid #312b2b;
+}
+
+.add-task-button:hover,
+.delete-folder-button:hover {
+ 	background: #333;
+}
+
+.delete-folder-button {
+  	color: #ff8a80;
+}
+
+.empty-tasks-message {
+	margin: auto;
+	align-self: center;
+	text-align: center;
+}
+
+.sidebar-bottom-bar {
+	margin-top: auto;
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	background: #222;
+	display: flex;
+	justify-content: center;
+	z-index: 10;
+}
+
+.add-folder-button {
+	width: 100%;
+	font-size: 2rem;
+	background: #222;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.add-folder-button:hover {
+  	background: #333;
 }

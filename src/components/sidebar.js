@@ -15,5 +15,14 @@ export function createSidebar(container) {
 
 	sidebar.appendChild(sidebarTopMenu);
 	sidebar.appendChild(sidebarBottomMenu);
+
+	const sidebarBottomBar = document.createElement("div");
+	sidebarBottomBar.className = "sidebar-bottom-bar";
+	const addFolderButton = document.createElement("button");
+	addFolderButton.className = "add-folder-button";
+	addFolderButton.textContent = "+";
+	sidebarBottomBar.appendChild(addFolderButton);
+	sidebar.appendChild(sidebarBottomBar);
+
 	container.appendChild(sidebar);
 }

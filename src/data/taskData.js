@@ -53,6 +53,66 @@ const tasks = [
 		priority: "High",
 		notes: ""
 	},
+	{
+		id: 5,
+		folderId: 2,
+		title: "Plan birthday party",
+		description: "Organize a surprise birthday party for Sarah.",
+		dueDate: "2025-06-20",
+		priority: "Low",
+		notes: "Invite close friends and family.",
+		checkList: [
+			{ text: "Send invitations", done: false },
+			{ text: "Order cake", done: false},
+			{ text: "Decorate house", done: false },
+		],
+		done: false,
+	},
+	{
+		id: 6,
+		folderId: 2,
+		title: "Plan birthday party",
+		description: "Organize a surprise birthday party for Sarah.",
+		dueDate: "2025-06-20",
+		priority: "Low",
+		notes: "Invite close friends and family.",
+		checkList: [
+			{ text: "Send invitations", done: false },
+			{ text: "Order cake", done: false},
+			{ text: "Decorate house", done: false },
+		],
+		done: false,
+	},
+	{
+		id: 7,
+		folderId: 2,
+		title: "Plan birthday party",
+		description: "Organize a surprise birthday party for Sarah.",
+		dueDate: "2025-06-20",
+		priority: "Low",
+		notes: "Invite close friends and family.",
+		checkList: [
+			{ text: "Send invitations", done: false },
+			{ text: "Order cake", done: false},
+			{ text: "Decorate house", done: false },
+		],
+		done: false,
+	},
+	{
+		id: 8,
+		folderId: 2,
+		title: "Plan birthday party",
+		description: "Organize a surprise birthday party for Sarah.",
+		dueDate: "2025-06-20",
+		priority: "Low",
+		notes: "Invite close friends and family.",
+		checkList: [
+			{ text: "Send invitations", done: false },
+			{ text: "Order cake", done: false},
+			{ text: "Decorate house", done: false },
+		],
+		done: false,
+	},
 ];
 
 export function getTasks(folderId = null) {
