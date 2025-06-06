@@ -13,5 +13,8 @@
     "build": "webpack --mode development",
     "prod": "webpack --mode production",
     "deploy": "npm run prod && gh-pages -d dist"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2"
   }
 }
