@@ -7,7 +7,7 @@ const tasks = [
   		dueDate: "2025-06-15",
   		priority: "High",
   		notes: "Make sure to check the latest sales numbers.",
-  		checklist: [
+  		checkList: [
 			{ text: "Collect data", done: true },
 			{ text: "Write draft", done: false },
 			{ text: "Review with team", done: false }
@@ -44,6 +44,42 @@ const tasks = [
 		],
 		done: false,
 	},
+	{
+		id: 4,
+		folderId: "__today",
+		title: "Finish todo-list app",
+		description: "Attempt to finish The Odin Project's todo-list app assignment.",
+		dueDate: "2025-06-06",
+		priority: "High",
+		notes: ""
+	},
+	{
+		id: 5,
+		folderId: "__upcoming",
+		title: "Finish todo-list app",
+		description: "Attempt to finish The Odin Project's todo-list app assignment.",
+		dueDate: "2025-06-06",
+		priority: "High",
+		notes: ""
+	},
+	{
+		id: 6,
+		folderId: "__someday",
+		title: "Finish todo-list app",
+		description: "Attempt to finish The Odin Project's todo-list app assignment.",
+		dueDate: "2025-06-06",
+		priority: "High",
+		notes: ""
+	},
+	{
+		id: 7,
+		folderId: "__misc",
+		title: "Finish todo-list app",
+		description: "Attempt to finish The Odin Project's todo-list app assignment.",
+		dueDate: "2025-06-06",
+		priority: "High",
+		notes: ""
+	},
 ];
 
 export function getTasks(folderId = null) {
@@ -64,7 +100,7 @@ export function addTask(taskData) {
 		dueDate: taskData.dueDate || null,
 		priority: taskData.priority || "Low",
 		notes: taskData.notes || "",
-		checklist: taskData.checkList || [],
+		checkList: taskData.checkList || [],
 		done: false,
 	};
 
