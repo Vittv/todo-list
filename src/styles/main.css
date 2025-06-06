@@ -63,12 +63,12 @@ body {
 }
 
 .sidebar-button:hover {
-  	filter: brightness(80%);
+  	background-color: #1c1c1c;
 }
 
 .sidebar-button.active,
 .sidebar-button:active {
-  filter: brightness(80%);
+  	background-color: #1c1c1c;
 }
 
 .folder-page {
