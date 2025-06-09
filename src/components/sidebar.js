@@ -13,6 +13,9 @@ export function createSidebar(container) {
 	const githubIcon = document.createElement("i");
 	githubIcon.className = "fab fa-github fa-fw";
 	githubButton.appendChild(githubIcon);
+	githubButton.addEventListener("click", () => {
+		window.open("https://github.com/Vittv/todo-list", "_blank", "noopener, noreferrer");
+	})
 
 	const moonButton = document.createElement("button");
 	moonButton.className = "sidebar-topbar-btn moon-btn";
