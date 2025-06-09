@@ -26,14 +26,62 @@ export function createFolderPage(folderPage, folderId) {
 			// Header
 			const headerDiv = document.createElement("div");
 			headerDiv.className = "headerdiv";
+			headerDiv.style.display = "flex";
+			headerDiv.style.alignItems = "center";
+			headerDiv.style.justifyContent = "space-between";
+
 			const title = document.createElement("h2");
 			title.textContent = task.title;
 
-			const description = document.createElement("h3");
-			description.textContent = task.description;
+			const actionsDiv = document.createElement("div");
+			actionsDiv.style.display = "flex";
+			actionsDiv.style.alignItems = "center";
+			actionsDiv.style.gap = "0.5rem";
+
+			const editTaskButton = document.createElement("button");
+			editTaskButton.className = "edit-task-button";
+			const editIcon = document.createElement("i");
+			editIcon.className = "fas fa-pen";
+			editTaskButton.appendChild(editIcon);
+			editTaskButton.title = "Edit task";
+			editTaskButton.style.background = "none";
+			editTaskButton.style.border = "none";
+			editTaskButton.style.color = "#ddd";
+			editTaskButton.style.cursor = "pointer";
+			editTaskButton.style.fontSize = "1.2rem";
+			editTaskButton.style.display = "flex";
+			editTaskButton.style.alignItems = "center";
+
+			const deleteTaskButton = document.createElement("button");
+			deleteTaskButton.className = "delete-task-button";
+			const trashIcon = document.createElement("i");
+			trashIcon.className = "fas fa-trash-alt";
+			deleteTaskButton.appendChild(trashIcon);
+			deleteTaskButton.title = "Delete task";
+			deleteTaskButton.style.background = "none";
+			deleteTaskButton.style.border = "none";
+			deleteTaskButton.style.color = "#ff8a80";
+			deleteTaskButton.style.cursor = "pointer";
+			deleteTaskButton.style.fontSize = "1.2rem";
+			deleteTaskButton.style.display = "flex";
+			deleteTaskButton.style.alignItems = "center";
+
+			actionsDiv.appendChild(editTaskButton);
+			actionsDiv.appendChild(deleteTaskButton);
 
 			headerDiv.appendChild(title);
-			headerDiv.appendChild(description);
+			headerDiv.appendChild(actionsDiv);
+
+			deleteTaskButton.addEventListener("click", () => {
+				// Remove the task from the data and re-render the page
+				import("../data/taskData").then(({ deleteTask }) => {
+					deleteTask(task.id);
+					createFolderPage(folderPage, folderId);
+				});
+			});
+
+			const description = document.createElement("h3");
+			description.textContent = task.description;
 
 			// Meta
 			const metaDiv = document.createElement("div");
@@ -89,6 +137,7 @@ export function createFolderPage(folderPage, folderId) {
 			}
 
 			taskDiv.appendChild(headerDiv);
+			taskDiv.appendChild(description);
 			taskDiv.appendChild(metaDiv);
 			taskDiv.appendChild(detailDiv);
 
@@ -108,8 +157,19 @@ export function createFolderPage(folderPage, folderId) {
 	deleteButton.className = "delete-folder-button";
 	deleteButton.textContent = "-";
 
+	const editFolderButton = document.createElement("button");
+	editFolderButton.className = "edit-folder-button";
+	const pencilIcon = document.createElement("i");
+	pencilIcon.className = "fas fa-pen-to-square";
+	editFolderButton.appendChild(pencilIcon);
+
+	addButton.title = "Add task";
+	deleteButton.title = "Delete folder";
+	editFolderButton.title = "Edit Folder";
+
 	bottomBar.appendChild(addButton);
 	bottomBar.appendChild(deleteButton);
+	bottomBar.appendChild(editFolderButton);
 
 	folderPage.appendChild(bottomBar);
 }

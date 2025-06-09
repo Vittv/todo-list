@@ -23,13 +23,17 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	width: 20%;
+	width: clamp(10vw, 20vw, 22vw);
 	background-color: #222;
 	position: sticky;
 	top: 0;
 	left: 0;
 	z-index: 10;
 	border-right: 1px solid #444;
+}
+
+.sidebar button {
+	transition: 0.2s ease;
 }
 
 .sidebar-top-menu {
@@ -107,11 +111,12 @@ body {
 }
 
 .add-task-button,
-.delete-folder-button {
+.delete-folder-button,
+.edit-folder-button {
 	width: 100%;
 	font-size: 2rem;
 	background: #222;
-	color: #fff;
+	color: #ddd;
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
@@ -123,12 +128,14 @@ body {
 }
 
 .add-task-button:hover,
-.delete-folder-button:hover {
+.delete-folder-button:hover,
+.edit-folder-button:hover {
  	background: #333;
 }
 
-.delete-folder-button {
-  	color: #ddd;
+.edit-folder-button {
+	font-size: 1.2rem;
+	border-left: 1px solid #444;
 }
 
 .empty-tasks-message {
@@ -155,7 +162,7 @@ body {
 	width: 100%;
 	font-size: 2rem;
 	background: #222;
-	color: #fff;
+	color: #ddd;
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
@@ -289,4 +296,28 @@ h3 {
 
 .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
   	opacity: 1;
+}
+
+/* Custom scrollbar for all scrollable elements */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #222;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #222;
+}
+
+.sidebar,
+.folder-page,
+.sidebar-bottom-menu {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #222;
 }

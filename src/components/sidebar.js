@@ -35,13 +35,18 @@ export function createSidebar(container) {
 	sidebar.appendChild(sidebarTopMenu);
 	sidebar.appendChild(sidebarBottomMenu);
 
-
+	// Set the default active sidebar button for Today on initial load
+	setTimeout(() => {
+		const todayButton = sidebarTopMenu.querySelector('.sidebar-button');
+		if (todayButton) todayButton.classList.add('active');
+	}, 0);
 
 	const sidebarBottomBar = document.createElement("div");
 	sidebarBottomBar.className = "sidebar-bottom-bar";
 	const addFolderButton = document.createElement("button");
 	addFolderButton.className = "add-folder-button";
 	addFolderButton.textContent = "+";
+	addFolderButton.title = "Add folder";
 	sidebarBottomBar.appendChild(addFolderButton);
 	sidebar.appendChild(sidebarBottomBar);
 
