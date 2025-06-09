@@ -1,5 +1,7 @@
 import { renderSystemFolders } from "./sidebar/sidebarSystemFolders";
 import { renderUserFolders } from "./sidebar/sidebarUserFolders";
+import { showFolderModal } from "./modal/folderModal";
+import { addFolder } from "../data/folderData";
 
 export function createSidebar(container) {
 	const sidebar = document.createElement("div");
@@ -50,6 +52,21 @@ export function createSidebar(container) {
 	addFolderButton.className = "add-folder-button";
 	addFolderButton.textContent = "+";
 	addFolderButton.title = "Add folder";
+
+	addFolderButton.addEventListener("click", () => {
+		showFolderModal({
+			onSubmit: (name) => {
+				addFolder(name);
+				// Re-render sidebar user folders
+				const sidebarBottomMenu = sidebar.querySelector('.sidebar-bottom-menu');
+				if (sidebarBottomMenu) {
+					sidebarBottomMenu.innerHTML = "";
+					renderUserFolders(sidebarBottomMenu);
+				}
+			}
+		});
+	});
+
 	sidebarBottomBar.appendChild(addFolderButton);
 	sidebar.appendChild(sidebarBottomBar);
 

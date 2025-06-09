@@ -1,5 +1,7 @@
 import { getTasks } from "../data/taskData";
 import { getFolders } from "../data/folderData";
+import { showFolderModal } from "./modal/folderModal";
+import { addFolder } from "../data/folderData";
 
 export function createFolderPage(folderPage, folderId) {
 	folderPage.innerHTML = ""; // clear any old content
@@ -152,24 +154,52 @@ export function createFolderPage(folderPage, folderId) {
 	const addButton = document.createElement("button");
 	addButton.className = "add-task-button";
 	addButton.textContent = "+";
-
-	const deleteButton = document.createElement("button");
-	deleteButton.className = "delete-folder-button";
-	deleteButton.textContent = "-";
-
-	const editFolderButton = document.createElement("button");
-	editFolderButton.className = "edit-folder-button";
-	const pencilIcon = document.createElement("i");
-	pencilIcon.className = "fas fa-pen-to-square";
-	editFolderButton.appendChild(pencilIcon);
-
 	addButton.title = "Add task";
-	deleteButton.title = "Delete folder";
-	editFolderButton.title = "Edit Folder";
+
+	let deleteButton = null;
+	let editFolderButton = null;
+
+	// Only show delete/edit for user folders
+	if (folder && typeof folder.id === "number") {
+		deleteButton = document.createElement("button");
+		deleteButton.className = "delete-folder-button";
+		deleteButton.textContent = "-";
+		deleteButton.title = "Delete folder";
+
+		editFolderButton = document.createElement("button");
+		editFolderButton.className = "edit-folder-button";
+		const pencilIcon = document.createElement("i");
+		pencilIcon.className = "fas fa-pen-to-square";
+		editFolderButton.appendChild(pencilIcon);
+		editFolderButton.title = "Edit Folder";
+
+		// Edit folder logic
+		editFolderButton.addEventListener("click", () => {
+			showFolderModal({
+				initialName: folder.name,
+				onSubmit: (newName) => {
+					if (newName && newName !== folder.name) {
+						folder.name = newName;
+						// Update sidebar user folders
+						const sidebarBottomMenu = document.querySelector('.sidebar-bottom-menu');
+						if (sidebarBottomMenu) {
+							sidebarBottomMenu.innerHTML = "";
+							import("./sidebar/sidebarUserFolders").then(({ renderUserFolders }) => {
+								renderUserFolders(sidebarBottomMenu);
+							});
+						}
+						// Update folder page heading
+						const heading = folderPage.querySelector("h1");
+						if (heading) heading.textContent = newName;
+					}
+				}
+			});
+		});
+	}
 
 	bottomBar.appendChild(addButton);
-	bottomBar.appendChild(deleteButton);
-	bottomBar.appendChild(editFolderButton);
+	if (deleteButton) bottomBar.appendChild(deleteButton);
+	if (editFolderButton) bottomBar.appendChild(editFolderButton);
 
 	folderPage.appendChild(bottomBar);
 }

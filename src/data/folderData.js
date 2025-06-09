@@ -15,7 +15,7 @@ export function getFolders() {
 }
 
 export function addFolder(name) {
-	const newId = folders.length > 0 ? Math.max(...userFolders.map(f => f.id)) + 1 : 1;
+	const newId = userFolders.length > 0 ? Math.max(...userFolders.map(f => f.id)) + 1 : 1;
 
 	const newFolder = {
 		id: newId,
