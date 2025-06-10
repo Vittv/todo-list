@@ -1,6 +1,3 @@
-// Folder Modal: for adding (and later editing) user folders
-// Usage: import { showFolderModal } from './modal/folderModal';
-
 export function showFolderModal({ onSubmit, initialName = "" } = {}) {
 	// Remove any existing modal
 	const existing = document.getElementById("folder-modal");
@@ -94,8 +91,8 @@ export function showFolderModal({ onSubmit, initialName = "" } = {}) {
 		if (e.key === "Escape") overlay.remove();
 	});
 
-	btnRow.appendChild(cancelBtn);
 	btnRow.appendChild(submitBtn);
+	btnRow.appendChild(cancelBtn);
 	modal.appendChild(btnRow);
 	overlay.appendChild(modal);
 	document.body.appendChild(overlay);

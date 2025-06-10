@@ -30,7 +30,7 @@ export function deleteFolder(id) {
 
 	const index = userFolders.findIndex(folder => folder.id === id);
 	if (index !== -1) {
-		folders.splice(index, 1);
+		userFolders.splice(index, 1);
 		return true;
 	}
 	return false;

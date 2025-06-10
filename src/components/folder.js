@@ -2,6 +2,8 @@ import { getTasks } from "../data/taskData";
 import { getFolders } from "../data/folderData";
 import { showFolderModal } from "./modal/folderModal";
 import { addFolder } from "../data/folderData";
+import { showTaskModal } from "./modal/taskModal";
+import { addTask } from "../data/taskData";
 
 export function createFolderPage(folderPage, folderId) {
 	folderPage.innerHTML = ""; // clear any old content
@@ -144,6 +146,26 @@ export function createFolderPage(folderPage, folderId) {
 			taskDiv.appendChild(detailDiv);
 
 			folderPage.appendChild(taskDiv);
+
+			// Edit task logic
+			editTaskButton.addEventListener("click", () => {
+				showTaskModal({
+					folderId: task.folderId,
+					initialTask: task,
+					mode: "edit",
+					onSubmit: (updatedTask) => {
+						// Update the task in the data
+						import("../data/taskData").then(({ getTasks }) => {
+							const allTasks = getTasks();
+							const idx = allTasks.findIndex(t => t.id === task.id);
+							if (idx !== -1) {
+								Object.assign(allTasks[idx], updatedTask);
+								createFolderPage(folderPage, folderId);
+							}
+						});
+					}
+				});
+			});
 		});
 	}
 
@@ -156,6 +178,17 @@ export function createFolderPage(folderPage, folderId) {
 	addButton.textContent = "+";
 	addButton.title = "Add task";
 
+	addButton.addEventListener("click", () => {
+		showTaskModal({
+			folderId,
+			mode: "add",
+			onSubmit: (taskData) => {
+				addTask(taskData);
+				createFolderPage(folderPage, folderId);
+			}
+		});
+	});
+
 	let deleteButton = null;
 	let editFolderButton = null;
 
@@ -165,6 +198,35 @@ export function createFolderPage(folderPage, folderId) {
 		deleteButton.className = "delete-folder-button";
 		deleteButton.textContent = "-";
 		deleteButton.title = "Delete folder";
+
+		deleteButton.addEventListener("click", () => {
+			import("./modal/confirmModal").then(({ showConfirmModal }) => {
+				showConfirmModal({
+					message: `Delete "${folder.name}" folder?`,
+					onConfirm: () => {
+						import("../data/folderData").then(({ deleteFolder }) => {
+							deleteFolder(folder.id);
+							// Update sidebar user folders
+							const sidebarBottomMenu = document.querySelector('.sidebar-bottom-menu');
+							if (sidebarBottomMenu) {
+								sidebarBottomMenu.innerHTML = "";
+								import("./sidebar/sidebarUserFolders").then(({ renderUserFolders }) => {
+									renderUserFolders(sidebarBottomMenu);
+								});
+							}
+							// Show another folder page once deleted (e.g., Today)
+							const folderPage = document.querySelector('.folder-page');
+							if (folderPage) {
+								import("./folder").then(({ createFolderPage }) => {
+									createFolderPage(folderPage, "__today");
+								});
+							}
+						});
+					},
+					// onCancel: do nothing
+				});
+			});
+		});
 
 		editFolderButton = document.createElement("button");
 		editFolderButton.className = "edit-folder-button";
