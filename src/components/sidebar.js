@@ -71,4 +71,98 @@ export function createSidebar(container) {
 	sidebar.appendChild(sidebarBottomBar);
 
 	container.appendChild(sidebar);
+
+	// When clicking outside sidebar on mobile, close it
+	document.addEventListener("click", function(e) {
+		if (window.innerWidth > 700) return;
+		if (!sidebar.classList.contains("open")) return;
+		if (!sidebar.contains(e.target)) {
+			sidebar.classList.remove("open");
+		}
+	});
+
+	let startX = null;
+	let currentX = null;
+	let startY = null;
+	let currentY = null;
+	let touching = false;
+
+	// Touch start
+	window.addEventListener("touchstart", function(e) {
+		if (window.innerWidth > 700) return;
+		if (e.touches.length !== 1) return;
+		startX = e.touches[0].clientX;
+		currentX = startX;
+		startY = e.touches[0].clientY;
+		currentY = startY;
+		touching = true;
+	}, { passive: true });
+
+	// Touch move
+	window.addEventListener("touchmove", function(e) {
+		if (!touching || window.innerWidth > 700) return;
+		currentX = e.touches[0].clientX;
+		currentY = e.touches[0].clientY;
+	}, { passive: true });
+
+	// Touch end
+	window.addEventListener("touchend", function(e) {
+		if (!touching || window.innerWidth > 700) return;
+		const dx = currentX - startX;
+		const dy = currentY - startY;
+		// Only trigger if horizontal swipe is dominant and vertical movement is not too large
+		if (!sidebar.classList.contains("open") && dx > 40 && Math.abs(dy) < 30) {
+			sidebar.classList.add("open"); // swipe right to open
+		}
+		if (sidebar.classList.contains("open") && dx < -40 && Math.abs(dy) < 30) {
+			sidebar.classList.remove("open"); // swipe left to close
+		}
+		touching = false;
+		startX = null;
+		currentX = null;
+		startY = null;
+		currentY = null;
+	}, { passive: true });
+
+	// Hide sidebar on mobile when a sidebar button is clicked
+	const hideSidebarOnMobile = () => {
+		if (window.innerWidth <= 700) {
+			sidebar.classList.remove("open");
+		}
+	};
+	
+	sidebar.addEventListener("click", function(e) {
+		const btn = e.target.closest(".sidebar-button");
+		if (btn) {
+			btn.classList.add("active");
+			setTimeout(() => {
+				hideSidebarOnMobile();
+			}, 120); // 120ms delay for feedback
+		}
+	});
+
+	// Blur content when sidebar is open on mobile
+	function updateSidebarBlur() {
+		const content = document.getElementById("content");
+		if (!content) return;
+		if (window.innerWidth > 700) {
+			content.classList.remove("sidebar-blur");
+			return;
+		}
+		if (sidebar.classList.contains("open")) {
+			content.classList.add("sidebar-blur");
+		} else {
+			content.classList.remove("sidebar-blur");
+		}
+	}
+
+	// Update blur on sidebar open/close
+	sidebar.addEventListener("transitionend", updateSidebarBlur);
+	// Also update on swipe and toggle
+	const observer = new MutationObserver(updateSidebarBlur);
+	observer.observe(sidebar, { attributes: true, attributeFilter: ["class"] });
+	window.addEventListener("resize", updateSidebarBlur);
+
+	// Initial state
+	updateSidebarBlur();
 }

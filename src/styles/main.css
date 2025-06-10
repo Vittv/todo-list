@@ -4,6 +4,7 @@
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
+	scroll-behavior: smooth;
 }
 
 body {
@@ -23,7 +24,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	width: clamp(10vw, 20vw, 22vw);
+	width: 25rem;
 	background-color: #222;
 	position: sticky;
 	top: 0;
@@ -64,6 +65,22 @@ body {
 	margin-bottom: 1rem;
 	text-align: left;
 	width: 100%;
+	max-width: 100%; /* Remove or override the ch-based max-width for hover effect */
+	display: flex;
+	align-items: center;
+}
+
+.sidebar-button i {
+	flex-shrink: 0;
+	margin-right: 0.5em;
+}
+
+.sidebar-button span {
+	display: block;
+	max-width: 25ch;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .sidebar-button:hover {
@@ -86,6 +103,8 @@ body {
 .folder-page > h1 {
   	align-self: center;
   	text-align: center;
+	overflow-wrap: break-word;
+	word-break: break-word;
 }
 
 .folder-page > .task-block {
@@ -300,24 +319,99 @@ h3 {
 
 /* Custom scrollbar for all scrollable elements */
 ::-webkit-scrollbar {
-  width: 8px;
-  background: #222;
+  	width: 8px;
+  	background: #222;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
+  	background: #333;
+  	border-radius: 4px;
 }
 
 /* For Firefox */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #333 #222;
+  	scrollbar-width: thin;
+  	scrollbar-color: #333 #222;
 }
 
 .sidebar,
 .folder-page,
 .sidebar-bottom-menu {
-  scrollbar-width: thin;
-  scrollbar-color: #333 #222;
+  	scrollbar-width: thin;
+  	scrollbar-color: #333 #222;
+}
+
+/* Responsive sidebar for mobile */
+@media (max-width: 700px) {
+  .sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 80vw;
+		max-width: 20rem;
+		min-width: 12rem;
+		height: 100vh;
+		z-index: 200;
+		transition: transform 0.3s;
+		box-shadow: 2px 0 16px #0008;
+		display: flex !important;
+		transform: translateX(-100%);
+		touch-action: pan-y;
+  	}
+  .sidebar.open {
+    	transform: translateX(0);
+  	}
+  #content {
+    	flex-direction: column;
+    	transition: filter 0.3s;
+  	}
+  #content.sidebar-blur .folder-page {
+		filter: blur(12px) brightness(0.8);
+		pointer-events: none;
+		user-select: none;
+  	}
+  #content.sidebar-blur .sidebar {
+		filter: none !important;
+		pointer-events: auto !important;
+		user-select: auto !important;
+		z-index: 201;
+  	}
+  	
+	.folder-page > .task-block {
+		margin: 0 1rem;
+	}
+
+	.folder-page h1 {
+    	font-size: clamp(1.5rem, 4vw + 1rem, 4rem);
+		max-width: 90%;
+		overflow-wrap: break-word;
+		word-break: break-word;
+  	}
+
+	.folder-page h2 {
+		font-size: 2rem;
+	}
+
+	.folder-page i {
+		font-size: 1rem;
+	}
+
+	.folder-page h3 {
+		font-size: 1.2rem;
+	}
+
+	.folder-page .metadiv,
+	.folder-page .detaildiv{
+		font-size: 1rem;
+	}
+
+	.folder-page .empty-tasks-message {
+		font-size: 1.4rem;
+	}
+}
+
+@media (max-width: 700px) {
+  	.sidebar {
+    	border-right: none;
+  	}
 }

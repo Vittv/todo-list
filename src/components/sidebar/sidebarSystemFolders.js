@@ -24,7 +24,9 @@ export function renderSystemFolders(container) {
 		icon.style.marginRight = "0.5em";
 
 		button.appendChild(icon);
-		button.append(folder.name);
+		const nameSpan = document.createElement("span");
+		nameSpan.textContent = folder.name;
+		button.appendChild(nameSpan);
 
 		button.addEventListener("click", () => {
 			const main = document.getElementById("content");
