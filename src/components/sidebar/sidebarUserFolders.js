@@ -1,5 +1,6 @@
 import { getFolders } from "../../data/folderData";
 import { createFolderPage } from "../folder";
+import { save } from "../../data/storage";
 
 const systemFolderIcons = {
 	"__today": { icon: "fa-star", color: "#FFD600" },
@@ -77,6 +78,8 @@ export function renderUserFolders(container) {
 				}
 				createUserFolderPage(folderPage, folder.id);
 			}
+
+			save("lastFolderId", folder.id);
 
 			const allSidebarButtons = document.querySelectorAll('.sidebar-button');
 			allSidebarButtons.forEach(btn => btn.classList.remove('active'));

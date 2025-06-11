@@ -10,6 +10,27 @@ const userFolders = [
 	{ id: 2, name: "Personal" },
 ];
 
+function saveFoldersToStorage() {
+  try {
+    localStorage.setItem('userFolders', JSON.stringify(userFolders));
+  } catch (e) {}
+}
+
+function loadFoldersFromStorage() {
+  try {
+    const data = localStorage.getItem('userFolders');
+    if (data) {
+      const arr = JSON.parse(data);
+      if (Array.isArray(arr)) {
+        userFolders.length = 0;
+        arr.forEach(f => userFolders.push(f));
+      }
+    }
+  } catch (e) {}
+}
+
+loadFoldersFromStorage();
+
 export function getFolders() {
 	return [...SYSTEM_FOLDERS, ...userFolders];
 }
@@ -22,6 +43,7 @@ export function addFolder(name) {
 		name: name.trim(),
 	};
 	userFolders.push(newFolder);
+	saveFoldersToStorage();
 	return newFolder;
 }
 
@@ -31,6 +53,7 @@ export function deleteFolder(id) {
 	const index = userFolders.findIndex(folder => folder.id === id);
 	if (index !== -1) {
 		userFolders.splice(index, 1);
+		saveFoldersToStorage();
 		return true;
 	}
 	return false;
