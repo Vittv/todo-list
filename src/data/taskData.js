@@ -47,12 +47,42 @@ const tasks = [
 	{
 		id: 4,
 		folderId: "__today",
+		title: "Hello!",
+		description: "Welcome to my todo-list app c:",
+		dueDate: "",
+		priority: "Hi",
+		notes: "I tried to make this nice, so hopefully:",
+		checkList: [
+			{ text: "The layout is easy to understand and use", done: true },
+			{ text: "The UI and theme switching are pleasant", done: true },
+			{ text: "This app can be of some use to you", done: true },
+			{ text: "Thank you for trying it out!", done: true },
+		],
+	},
+	{
+		id: 5,
+		folderId: "__today",
+		title: "About the app",
+		description: "Feel free to delete this and have your own tasks",
+		dueDate: "",
+		priority: "Hello",
+		notes: "Some information about the app:",
+		checkList: [
+			{ text: "Made with Webpack, plain HTML, CSS and JS", done: true },
+			{ text: "All data is stored in your browser's local storage", done: true },
+			{ text: "Which means this data won't be the same on different devices", done: false },
+			{ text: "That's all, goodbye forever", done: true },
+		],
+	},
+	{
+		id: 6,
+		folderId: "__today",
 		title: "Finish todo-list app",
 		description: "Attempt to finish The Odin Project's todo-list app assignment.",
 		dueDate: "2025-06-11",
 		priority: "High",
 		notes: "Make sure to separate logic and DOM",
-		checkList : [
+		checkList :[
 			{ text: "Add logic and data management", done: true },
 			{ text: "Add DOM manipulation and rendering", done: true},
 			{ text: "Add UI design and themes", done: true},
