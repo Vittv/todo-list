@@ -58,6 +58,7 @@ const tasks = [
 			{ text: "This app can be of some use to you", done: true },
 			{ text: "Thank you for trying it out!", done: true },
 		],
+		done: false,
 	},
 	{
 		id: 5,
@@ -73,6 +74,7 @@ const tasks = [
 			{ text: "Which means this data won't be the same on different devices", done: false },
 			{ text: "That's all, goodbye forever", done: true },
 		],
+		done: false,
 	},
 	{
 		id: 6,
@@ -88,6 +90,7 @@ const tasks = [
 			{ text: "Add UI design and themes", done: true},
 			{ text: "Deploy app", done: true},
 		],
+		done: true,
 	},
 ];
 

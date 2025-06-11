@@ -147,6 +147,27 @@ export function createFolderPage(folderPage, folderId) {
 			taskDiv.appendChild(metaDiv);
 			taskDiv.appendChild(detailDiv);
 
+			const completeBtn = document.createElement("button");
+			completeBtn.className = "mark-complete-btn";
+			completeBtn.textContent = task.done ? "Finished" : "Finish";
+			completeBtn.style.margin = "1.5rem 0 0 0";
+			completeBtn.style.alignSelf = "flex-start";
+			completeBtn.addEventListener("click", () => {
+				task.done = !task.done;
+				// After toggling done, update button text and styles
+				completeBtn.textContent = task.done ? "Finished" : "Finish";
+				title.classList.toggle("task-done", task.done);
+				taskDiv.classList.toggle("task-block-done", task.done);
+			});
+			taskDiv.appendChild(completeBtn);
+
+			// When rendering, apply done styles if task.done is true
+			if (task.done) {
+				title.classList.add("task-done");
+				taskDiv.classList.add("task-block-done");
+				completeBtn.textContent = "Finished";
+			}
+
 			folderPage.appendChild(taskDiv);
 
 			// Edit task logic
