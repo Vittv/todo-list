@@ -5,12 +5,117 @@
 	padding: 0;
 	margin: 0;
 	scroll-behavior: smooth;
+
+}
+
+[data-theme="light"] {
+	--color-bg-main: #f7f7f9;
+	--color-bg-surface: #fff;
+	--color-bg-hover: #f0f0f0;
+	--color-border: #d0d0d0;
+	--color-border-strong: #b0b0b0;
+	--color-fg-main: #222;
+	--color-fg-accent: #ffb300;
+	--color-fg-danger: #d32f2f;
+	--color-fg-link: #1976d2;
+	--color-fg-system-today: #ffb300;
+	--color-fg-system-upcoming: #e57373;
+	--color-fg-system-someday: #43a047;
+	--color-fg-system-misc: #1976d2;
+	--color-fg-user-folder: #888;
+	--color-scrollbar-bg: #ececec;
+	--color-scrollbar-thumb: #cccccc;
+	--color-modal-error: #d32f2f;
+	--color-modal-btn: #1976d2;
+	--color-modal-btn-cancel: #e0e0e0;
+
+	/* Aliases for semantic use */
+	--background-color: var(--color-bg-main);
+	--foreground-color: var(--color-fg-main);
+	--border-color: #222;
+	--sidebar-bg: var(--color-bg-surface);
+	--sidebar-border: var(--color-border);
+	--sidebar-hover: var(--color-bg-hover);
+	--sidebar-icon: var(--color-fg-main);
+	--sidebar-icon-accent: var(--color-fg-accent);
+	--sidebar-icon-danger: var(--color-fg-danger);
+	--task-block-border: var(--color-border-strong);
+	--task-block-bg: var(--color-bg-surface);
+	--task-title: var(--color-fg-main);
+	--task-desc: var(--color-fg-main);
+	--task-meta: var(--color-fg-main);
+	--task-notes: var(--color-fg-main);
+	--task-checkmark: var(--color-fg-link);
+	--task-checkmark-border: var(--color-fg-main);
+	--task-checkmark-bg: var(--color-bg-surface);
+	--task-checkmark-checked-bg: var(--color-fg-link);
+	--task-checkmark-checked-border: var(--color-fg-main);
+	--modal-bg: var(--color-bg-surface);
+	--modal-border: var(--color-border);
+	--modal-btn-bg: var(--color-modal-btn);
+	--modal-btn-cancel-bg: var(--color-modal-btn-cancel);
+	--modal-btn-danger: var(--color-fg-danger);
+	--modal-error: var(--color-modal-error);
+	--scrollbar-bg: var(--color-scrollbar-bg);
+	--scrollbar-thumb: var(--color-scrollbar-thumb);
+}
+
+[data-theme="dark"] {
+	--color-bg-main: #111;
+	--color-bg-surface: #222;
+	--color-bg-hover: #1c1c1c;
+	--color-border: #444;
+	--color-border-strong: #555;
+	--color-fg-main: #ddd;
+	--color-fg-accent: #FFD600;
+	--color-fg-danger: #ff8a80;
+	--color-fg-link: #1b6fc4;
+	--color-fg-system-today: #FFD600;
+	--color-fg-system-upcoming: #f9695b;
+	--color-fg-system-someday: #6cdd70;
+	--color-fg-system-misc: #4d97bc;
+	--color-fg-user-folder: #999;
+	--color-scrollbar-bg: #222;
+	--color-scrollbar-thumb: #333;
+	--color-modal-error: #ff8a80;
+	--color-modal-btn: #1b6fc4;
+	--color-modal-btn-cancel: #444;
+
+	/* Aliases for semantic use */
+	--background-color: var(--color-bg-main);
+	--foreground-color: var(--color-fg-main);
+	--border-color: white;
+	--sidebar-bg: var(--color-bg-surface);
+	--sidebar-border: var(--color-border);
+	--sidebar-hover: var(--color-bg-hover);
+	--sidebar-icon: var(--color-fg-main);
+	--sidebar-icon-accent: var(--color-fg-accent);
+	--sidebar-icon-danger: var(--color-fg-danger);
+	--task-block-border: var(--color-border-strong);
+	--task-block-bg: var(--color-bg-surface);
+	--task-title: var(--color-fg-main);
+	--task-desc: var(--color-fg-main);
+	--task-meta: var(--color-fg-main);
+	--task-notes: var(--color-fg-main);
+	--task-checkmark: var(--color-fg-link);
+	--task-checkmark-border: var(--color-fg-main);
+	--task-checkmark-bg: var(--color-bg-surface);
+	--task-checkmark-checked-bg: var(--color-fg-link);
+	--task-checkmark-checked-border: var(--color-fg-main);
+	--modal-bg: var(--color-bg-surface);
+	--modal-border: var(--color-border);
+	--modal-btn-bg: var(--color-modal-btn);
+	--modal-btn-cancel-bg: var(--color-modal-btn-cancel);
+	--modal-btn-danger: var(--color-fg-danger);
+	--modal-error: var(--color-modal-error);
+	--scrollbar-bg: var(--color-scrollbar-bg);
+	--scrollbar-thumb: var(--color-scrollbar-thumb);
 }
 
 body {
-	background-color: #111;
-	color: #ddd;
-	border-color: white;
+	background-color: var(--background-color);
+	color: var(--foreground-color);
+	border-color: var(--border-color);
 }
 
 #content {
@@ -25,12 +130,12 @@ body {
 	flex-direction: column;
 	height: 100vh;
 	width: 25rem;
-	background-color: #222;
+	background-color: var(--sidebar-bg);
 	position: sticky;
 	top: 0;
 	left: 0;
 	z-index: 10;
-	border-right: 1px solid #444;
+	border-right: 1px solid var(--sidebar-border);
 }
 
 .sidebar button {
@@ -50,7 +155,7 @@ body {
 	flex-direction: column;
 	padding: 1rem;
 	padding-top: 2rem;
-	border-top: 1px solid #444;
+	border-top: 1px solid var(--sidebar-border);
 	overflow-y: auto;
 }
 
@@ -58,8 +163,8 @@ body {
 	cursor: pointer;
 	font-size: 1.0rem;
 	font-weight: 400;
-	background-color: #222;
-	color: #ddd;
+	background-color: var(--sidebar-bg);
+	color: var(--sidebar-icon);
 	border: none;
 	padding: 1rem;
 	margin-bottom: 1rem;
@@ -83,13 +188,10 @@ body {
 	text-overflow: ellipsis;
 }
 
-.sidebar-button:hover {
-  	background-color: #1c1c1c;
-}
-
+.sidebar-button:hover,
 .sidebar-button.active,
 .sidebar-button:active {
-  	background-color: #1c1c1c;
+	background-color: var(--sidebar-hover);
 }
 
 .folder-page {
@@ -108,7 +210,7 @@ body {
 }
 
 .folder-page > .task-block {
-	border-top: 1px solid #555;
+	border-top: 1px solid var(--task-block-border);
 	margin: 0 2rem;
 	padding: 2rem 0rem;
 	padding-bottom: 4rem;
@@ -118,13 +220,31 @@ body {
 	list-style: none;
 }
 
+.folder-page .task-block h2,
+.folder-page .task-block h3,
+.folder-page .task-block p,
+.folder-page .task-block .metadiv,
+.folder-page .task-block .detaildiv,
+.folder-page .task-block ul,
+.folder-page .task-block li {
+	word-break: break-word;
+	white-space: pre-line;
+	overflow-wrap: break-word;
+}
+
+.folder-page .task-block {
+	/* Ensure content doesn't overflow horizontally */
+	word-break: break-word;
+	overflow-wrap: break-word;
+}
+
 .folder-bottom-bar {
 	margin-top: auto;
 	position: sticky;
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background: #222;
+	background: var(--sidebar-bg);
 	display: flex;
 	justify-content: center;
 	z-index: 2;
@@ -135,27 +255,27 @@ body {
 .edit-folder-button {
 	width: 100%;
 	font-size: 2rem;
-	background: #222;
-	color: #ddd;
+	background: var(--sidebar-bg);
+	color: var(--sidebar-icon);
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
-	border-top: 1px solid #444;
+	border-top: 1px solid var(--sidebar-border);
 }
 
 .add-task-button {
-	border-right: 1px solid #444;
+	border-right: 1px solid var(--sidebar-border);
 }
 
 .add-task-button:hover,
 .delete-folder-button:hover,
 .edit-folder-button:hover {
- 	background: #333;
+	background: var(--sidebar-hover);
 }
 
 .edit-folder-button {
 	font-size: 1.2rem;
-	border-left: 1px solid #444;
+	border-left: 1px solid var(--sidebar-border);
 }
 
 .empty-tasks-message {
@@ -172,7 +292,7 @@ body {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	background: #222;
+	background: var(--sidebar-bg);
 	display: flex;
 	justify-content: center;
 	z-index: 10;
@@ -181,21 +301,21 @@ body {
 .add-folder-button {
 	width: 100%;
 	font-size: 2rem;
-	background: #222;
-	color: #ddd;
+	background: var(--sidebar-bg);
+	color: var(--sidebar-icon);
 	border: none;
 	cursor: pointer;
 	transition: background 0.2s;
-	border-top: 1px solid #444;
+	border-top: 1px solid var(--sidebar-border);
 }
 
 .add-folder-button:hover {
-  	background: #333;
+	background: var(--sidebar-hover);
 }
 
 .sidebar-top-bar {
 	width: 100%;
-	background: #222;
+	background: var(--sidebar-bg);
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -208,7 +328,7 @@ body {
 .sidebar-topbar-btn {
 	width: 100%;
 	font-size: 1.2rem;
-	background: #222;
+	background: var(--sidebar-bg);
 	color: #fff;
 	border: none;
 	cursor: pointer;
@@ -217,23 +337,26 @@ body {
 	align-items: center;
 	justify-content: center;
 	transition: background 0.2s;
-	border-bottom: 1px solid #444;
+	border-bottom: 1px solid var(--sidebar-border);
 }
 
 .sidebar-topbar-btn:hover {
-  	background: #333;
+	background: var(--sidebar-hover);
 }
 
 .github-btn i {
   	color: #fff;
 }
+[data-theme="light"] .github-btn i {
+  	color: #111;
+}
 
 .sidebar-topbar-btn:first-of-type {
-	border-right: 1px solid #444;
+	border-right: 1px solid var(--sidebar-border);
 }
 
 .moon-btn i {
-  	color: #FFD600;
+	color: var(--sidebar-icon-accent);
 }
 
 h1 {
@@ -285,9 +408,9 @@ h3 {
 .custom-checkbox .checkmark {
 	width: 1.1em;
 	height: 1.1em;
-	border: 2px solid #ddd;
+	border: 2px solid var(--task-checkmark-border);
 	border-radius: 0;
-	background: #222;
+	background: var(--task-checkmark-bg);
 	margin-right: 0.5em;
 	position: relative;
 	transition: border-color 0.2s, background 0.2s;
@@ -295,8 +418,8 @@ h3 {
 }
 
 .custom-checkbox input[type="checkbox"]:checked + .checkmark {
-	background: #1b6fc4;
-	border-color: #ddd;
+	background: var(--task-checkmark-checked-bg);
+	border-color: var(--task-checkmark-checked-border);
 }
 
 .custom-checkbox .checkmark::after {
@@ -320,26 +443,26 @@ h3 {
 
 /* Custom scrollbar for all scrollable elements */
 ::-webkit-scrollbar {
-  	width: 8px;
-  	background: #222;
+	background: var(--scrollbar-bg);
+	width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-  	background: #333;
-  	border-radius: 4px;
+	background: var(--scrollbar-thumb);
+	border-radius: 4px;
 }
 
 /* For Firefox */
 * {
-  	scrollbar-width: thin;
-  	scrollbar-color: #333 #222;
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+	scrollbar-width: thin;
 }
 
 .sidebar,
 .folder-page,
 .sidebar-bottom-menu {
-  	scrollbar-width: thin;
-  	scrollbar-color: #333 #222;
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
+	scrollbar-width: thin;
 }
 
 /* Responsive sidebar for mobile */
@@ -415,4 +538,18 @@ h3 {
   	.sidebar {
     	border-right: none;
   	}
+}
+
+/* Disable transitions when 'disable-transitions' class is present on the root */
+.disable-transitions *, .disable-transitions *:before, .disable-transitions *:after {
+  	transition: none !important;
+}
+
+.edit-task-button i,
+.delete-task-button i {
+  	transition: transform 0.15s cubic-bezier(.4,1.5,.5,1);
+}
+.edit-task-button:hover i,
+.delete-task-button:hover i {
+  	transform: scale(1.25);
 }

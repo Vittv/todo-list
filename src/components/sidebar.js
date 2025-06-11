@@ -25,6 +25,37 @@ export function createSidebar(container) {
 	moonIcon.className = "fas fa-moon fa-fw";
 	moonButton.appendChild(moonIcon);
 
+	// Theme switching logic
+	moonButton.title = "Switch theme";
+	moonButton.addEventListener("click", () => {
+		const root = document.documentElement;
+		const current = root.getAttribute("data-theme") || "dark";
+		const next = current === "dark" ? "light" : "dark";
+		// Disable transitions during theme switch
+		root.classList.add('disable-transitions');
+		root.setAttribute("data-theme", next);
+		try { localStorage.setItem("theme", next); } catch (e) {}
+		moonIcon.className = next === "dark" ? "fas fa-moon fa-fw" : "fas fa-sun fa-fw";
+		setTimeout(() => {
+			root.classList.remove('disable-transitions');
+		}, 350); // match or slightly exceed your transition duration
+	});
+
+	// On load, set icon and theme from localStorage if available, otherwise use OS preference, otherwise default to light
+	try {
+		let theme = localStorage.getItem("theme");
+		if (theme !== "light" && theme !== "dark") {
+			// Check OS preference
+			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				theme = "dark";
+			} else {
+				theme = "light";
+			}
+		}
+		document.documentElement.setAttribute("data-theme", theme);
+		moonIcon.className = theme === "dark" ? "fas fa-moon fa-fw" : "fas fa-sun fa-fw";
+	} catch (e) {}
+
 	sidebarTopBar.appendChild(githubButton);
 	sidebarTopBar.appendChild(moonButton);
 	sidebar.appendChild(sidebarTopBar);

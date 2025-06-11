@@ -1,11 +1,12 @@
 import { getFolders } from "../../data/folderData";
 import { createFolderPage } from "../folder";
+import "../../styles/main.css";
 
 const systemFolderIcons = {
-	"__today": { icon: "fa-star", color: "#FFD600", prefix: "fas" },
-	"__upcoming": { icon: "fa-calendar-alt", color: "#FF8A80", prefix: "far" },
-	"__someday": { icon: "fa-box", color: "#A5D6A7", prefix: "fas" },
-	"__misc": { icon: "fa-layer-group", color: "#607D8B", prefix: "fas" },
+	"__today": { icon: "fa-star", color: "var(--color-fg-system-today)", prefix: "fas" },
+	"__upcoming": { icon: "fa-calendar", color: "var(--color-fg-system-upcoming)", prefix: "fas" },
+	"__someday": { icon: "fa-box", color: "var(--color-fg-system-someday)", prefix: "fas" },
+	"__misc": { icon: "fa-layer-group", color: "var(--color-fg-system-misc)", prefix: "fas" },
 };
 
 export function renderSystemFolders(container) {

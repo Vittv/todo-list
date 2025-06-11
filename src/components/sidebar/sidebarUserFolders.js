@@ -58,7 +58,7 @@ export function renderUserFolders(container) {
 
 		const icon = document.createElement("i");
 		icon.className = "fas fa-cube fa-fw";
-		icon.style.color = "#999";
+		icon.style.color = "var(--color-fg-user-folder)";
 		icon.style.marginRight = "0.5em";
 
 		button.appendChild(icon);

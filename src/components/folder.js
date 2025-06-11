@@ -46,6 +46,7 @@ export function createFolderPage(folderPage, folderId) {
 			editTaskButton.className = "edit-task-button";
 			const editIcon = document.createElement("i");
 			editIcon.className = "fas fa-pen";
+			editIcon.style.color = "var(--color-fg-main)";
 			editTaskButton.appendChild(editIcon);
 			editTaskButton.title = "Edit task";
 			editTaskButton.style.background = "none";
@@ -60,6 +61,7 @@ export function createFolderPage(folderPage, folderId) {
 			deleteTaskButton.className = "delete-task-button";
 			const trashIcon = document.createElement("i");
 			trashIcon.className = "fas fa-trash-alt";
+			trashIcon.style.color = "var(--color-fg-system-upcoming)";
 			deleteTaskButton.appendChild(trashIcon);
 			deleteTaskButton.title = "Delete task";
 			deleteTaskButton.style.background = "none";
