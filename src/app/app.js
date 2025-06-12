@@ -12,7 +12,12 @@ export function init(container) {
 	container.appendChild(folderPage);
 
 	// Load last folder from storage, fallback to __today
-	const lastFolderId = load("lastFolderId", "__today");
+	let lastFolderId = load("lastFolderId", "__today");
+	const allFolders = require("../data/folderData").getFolders();
+	const folderExists = allFolders.some(f => f.id === lastFolderId);
+	if (!folderExists) {
+		lastFolderId = "__today";
+	}
 	createFolderPage(folderPage, lastFolderId);
 
 	// Set active sidebar button for last folder
