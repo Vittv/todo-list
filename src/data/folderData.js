@@ -21,7 +21,7 @@ userFolders = userFolders.map(f => ({ ...f, id: Number(f.id) }));
 // Clean up userFolders: remove folders with invalid ids and fix NaN/0 ids
 userFolders = userFolders.filter(f => Number.isInteger(f.id) && f.id > 0);
 
-console.log("Current userFolders:", userFolders); // Debug log after loading
+
 
 export function getFolders() {
 	return [...SYSTEM_FOLDERS, ...userFolders];
@@ -36,10 +36,10 @@ export function addFolder(name) {
 		id: newId,
 		name: name.trim(),
 	};
-	console.log("Adding new folder:", newFolder); // Debug log
+
 	userFolders.push(newFolder);
 	save(USER_FOLDERS_KEY, userFolders);
-	console.log("Updated userFolders:", userFolders); // Debug log after adding
+
 	return newFolder;
 }
 
@@ -52,12 +52,9 @@ export function deleteFolder(id) {
 		save(USER_FOLDERS_KEY, userFolders);
 		// Synchronously delete all tasks with this folderId (handle both string and number id types)
 		const allTasks = getTasks();
-		console.log("[deleteFolder] All tasks before filtering:", allTasks);
 		const filteredTasks = allTasks.filter(task => String(task.folderId) !== String(id));
 		const deletedTasks = allTasks.filter(task => String(task.folderId) === String(id));
-		console.log(`[deleteFolder] Deleting folder id: ${id}`);
-		console.log("[deleteFolder] Tasks to be deleted:", deletedTasks);
-		console.log("[deleteFolder] Tasks after filtering:", filteredTasks);
+
 		save("tasks", filteredTasks);
 		setTasks(filteredTasks); // Update in-memory tasks array
 		return true;
