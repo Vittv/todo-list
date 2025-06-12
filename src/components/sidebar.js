@@ -15,6 +15,7 @@ export function createSidebar(container) {
 	const githubIcon = document.createElement("i");
 	githubIcon.className = "fab fa-github fa-fw";
 	githubButton.appendChild(githubIcon);
+	githubButton.title = "Source code";
 	githubButton.addEventListener("click", () => {
 		window.open("https://github.com/Vittv/todo-list", "_blank", "noopener, noreferrer");
 	})

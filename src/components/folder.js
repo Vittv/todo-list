@@ -126,6 +126,17 @@ export function createFolderPage(folderPage, folderId) {
 					checkbox.checked = item.done;
 					checkbox.addEventListener("change", (e) => {
 						item.done = checkbox.checked;
+						// Persist checklist change to localStorage
+						import("../data/taskData").then(({ getTasks }) => {
+							const allTasks = getTasks();
+							const idxTask = allTasks.findIndex(t => t.id === task.id);
+							if (idxTask !== -1) {
+								allTasks[idxTask].checkList = checklist;
+								import("../data/storage").then(({ save }) => {
+									save("tasks", allTasks);
+								});
+							}
+						});
 					});
 
 					const checkmark = document.createElement("span");
@@ -154,6 +165,9 @@ export function createFolderPage(folderPage, folderId) {
 			completeBtn.style.alignSelf = "flex-start";
 			completeBtn.addEventListener("click", () => {
 				task.done = !task.done;
+				import("../data/taskData").then(({ updateTaskDone }) => {
+					updateTaskDone(task.id, task.done);
+				});
 				// After toggling done, update button text and styles
 				completeBtn.textContent = task.done ? "Finished" : "Finish";
 				title.classList.toggle("task-done", task.done);
@@ -177,12 +191,16 @@ export function createFolderPage(folderPage, folderId) {
 					initialTask: task,
 					mode: "edit",
 					onSubmit: (updatedTask) => {
-						// Update the task in the data
-						import("../data/taskData").then(({ getTasks }) => {
+						// Update the task in the data and persist to localStorage
+						import("../data/taskData").then(({ getTasks, save }) => {
 							const allTasks = getTasks();
 							const idx = allTasks.findIndex(t => t.id === task.id);
 							if (idx !== -1) {
 								Object.assign(allTasks[idx], updatedTask);
+								// Persist changes
+								import("../data/storage").then(({ save }) => {
+									save("tasks", allTasks);
+								});
 								createFolderPage(folderPage, folderId);
 							}
 						});
@@ -264,18 +282,21 @@ export function createFolderPage(folderPage, folderId) {
 				initialName: folder.name,
 				onSubmit: (newName) => {
 					if (newName && newName !== folder.name) {
-						folder.name = newName;
-						// Update sidebar user folders
-						const sidebarBottomMenu = document.querySelector('.sidebar-bottom-menu');
-						if (sidebarBottomMenu) {
-							sidebarBottomMenu.innerHTML = "";
-							import("./sidebar/sidebarUserFolders").then(({ renderUserFolders }) => {
-								renderUserFolders(sidebarBottomMenu);
-							});
-						}
-						// Update folder page heading
-						const heading = folderPage.querySelector("h1");
-						if (heading) heading.textContent = newName;
+						import("../data/folderData").then(({ updateFolderName }) => {
+							updateFolderName(folder.id, newName);
+							folder.name = newName;
+							// Update sidebar user folders
+							const sidebarBottomMenu = document.querySelector('.sidebar-bottom-menu');
+							if (sidebarBottomMenu) {
+								sidebarBottomMenu.innerHTML = "";
+								import("./sidebar/sidebarUserFolders").then(({ renderUserFolders }) => {
+									renderUserFolders(sidebarBottomMenu);
+								});
+							}
+							// Update folder page heading
+							const heading = folderPage.querySelector("h1");
+							if (heading) heading.textContent = newName;
+						});
 					}
 				}
 			});

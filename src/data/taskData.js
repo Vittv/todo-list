@@ -1,4 +1,7 @@
-const tasks = [
+import { save, load } from "./storage";
+
+const TASKS_KEY = "tasks";
+const defaultTasks = [
 	{
 		id: 1,
   		folderId: 1,
@@ -81,7 +84,7 @@ const tasks = [
 		folderId: "__today",
 		title: "Finish todo-list app",
 		description: "Attempt to finish The Odin Project's todo-list app assignment.",
-		dueDate: "2025-06-11",
+		dueDate: "2025-06-12",
 		priority: "High",
 		notes: "Make sure to separate logic and DOM",
 		checkList :[
@@ -94,11 +97,17 @@ const tasks = [
 	},
 ];
 
+let tasks = load(TASKS_KEY, defaultTasks);
+
 export function getTasks(folderId = null) {
 	if (folderId === null) {
 		return tasks;
 	}
 	return tasks.filter(task => task.folderId === folderId);
+}
+
+export function setTasks(newTasks) {
+	tasks = newTasks;
 }
 
 export function addTask(taskData) {
@@ -115,8 +124,8 @@ export function addTask(taskData) {
 		checkList: taskData.checkList || [],
 		done: false,
 	};
-
 	tasks.push(newTask);
+	save(TASKS_KEY, tasks);
 	return newTask;
 }
 
@@ -124,7 +133,16 @@ export function deleteTask(id) {
 	const index = tasks.findIndex(task => task.id === id);
 	if (index !== -1) {
 		tasks.splice(index, 1);
+		save(TASKS_KEY, tasks);
 		return true;
 	}
 	return false;
+}
+
+export function updateTaskDone(id, done) {
+	const idx = tasks.findIndex(task => task.id === id);
+	if (idx !== -1) {
+		tasks[idx].done = done;
+		save(TASKS_KEY, tasks);
+	}
 }
